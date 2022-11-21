@@ -1,14 +1,16 @@
 package com.study.domain.post;
 
-import java.util.List;
+
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import com.study.user.UserVo;
+import com.study.dto.SearchDto;
+import com.study.paging.PagingResponse;
 
 import lombok.RequiredArgsConstructor;
 
@@ -52,12 +54,11 @@ public class PostController {
 	   
 	   
 	   @GetMapping("/post/list.do")
-	   public String openPostList(Model model , UserVo user) {
+	   public String openPostList(@ModelAttribute("params") final SearchDto params,Model model ) {
 		   
-		   List<PostResponse> posts = postService.findAllPost();
-		   
-		   model.addAttribute("posts",posts);
-		   model.addAttribute("user",user);
+	        PagingResponse<PostResponse> response = postService.findAllPost(params);
+	        model.addAttribute("response", response);
+		  
 		   
 		   return "post/list";
 		}

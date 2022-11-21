@@ -18,7 +18,7 @@ public class PostMappertTest {
 	
 	@Autowired
 	PostMapper postMapper;
-	
+	/*
 	@Test
 	void save() {
 
@@ -33,7 +33,7 @@ public class PostMappertTest {
 		System.out.println("전체 게시글 개수는 : " +posts.size()+ "개입니다.");
 		
 	}
-	
+	*/
 	@Test
 	void findById() {
 		PostResponse post = postMapper.findById(2L);
@@ -62,7 +62,7 @@ public class PostMappertTest {
 	
 	
 	
-	
+	/*
 	
 	@Test
 	void delete() {
@@ -72,7 +72,7 @@ public class PostMappertTest {
 		
 	}
 	
-	
+	*/
 	
 
 }

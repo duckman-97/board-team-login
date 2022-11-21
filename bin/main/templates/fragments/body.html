@@ -8,7 +8,7 @@ xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
                 <h1>게시판 프로젝트</h1>
                 <div class="top_menu">
                     <div class="login_user" sec:authorize="hasAnyRole('ADMIN','USER')">
-                    <strong><i class="far fa-user-circle" ></i> [[ ${#authentication.principal.username} ]]</strong>님 환영합니다.
+                    <strong>[[ ${#authentication.principal.username} ]]</strong>님 환영합니다.
                     </div>
 
                     
@@ -21,7 +21,7 @@ xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
                     
                     
 
-                    <div class="logout"><button type="button" onclick = "location.href='/logout';" sec:authorize="hasAnyRole('ADMIN','USER')"><span class="skip_info" >로그아웃</span><i class="fas fa-sign-out-alt"></i></button></div>
+                <button class="btns btn_st1 btn_mid" type="button" onclick = "location.href='/logout';" sec:authorize="hasAnyRole('ADMIN','USER')">로그아웃</button>
                 </div>
             </div>
         </header>
