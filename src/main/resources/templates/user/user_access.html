@@ -1,0 +1,35 @@
+<!--유저 페이지-->
+<!--user_access.html-->
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security" lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>user access</title>
+</head>
+<body>
+<h1>!!!환영합니다!!!</h1>
+
+<p>principal : <sec:authentication property="principal"/></p>
+
+
+
+
+
+
+<sec:authorize access = "isAnonymous()">
+<p>등록되지 않은 사용자</p>
+
+</sec:authorize>
+
+<sec:authorize access = "isAuthenticated()">
+<p>등록된 사용자 환영합니다</p>
+</sec:authorize>
+
+
+
+
+
+
+
+</body>
+</html>

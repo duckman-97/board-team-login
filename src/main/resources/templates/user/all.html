@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html xmlns:sec="http://www.thymeleaf.org/extras/spring-security" xmlns:th="http://www.thymeleaf.org" >
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+
+
+
+
+
+</head>
+<body>
+
+<h1>all</h1>
+
+<span sec:authentication="name"></span>
+
+<p th:text="${#authentication.name}" id = "UserName"></p>
+<p th:text = "${#authentication.principal}"/>
+<p th:text = "${#authentication}"></p>
+<hr/>
+
+<input type = "hidden" th:value = "${#authentication.name}" id = "myName">
+
+
+<div>
+    <p th:if="${#authentication.name == 's'}">true</p>
+
+</div>
+
+
+
+<!-- 
+<div sec:authentication="principal.username"></div>
+
+
+<p><sec:authentication property="principa.username"></p>
+ -->
+
+
+
+<div sec:authorize="hasRole('ADMIN')">
+
+
+</div>
+
+
+
+<script>
+   
+   
+</script>
+
+
+
+
+
+</body>
+
+
+
+
+</html>
