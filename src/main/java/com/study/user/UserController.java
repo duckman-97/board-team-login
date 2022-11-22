@@ -91,17 +91,5 @@ public class UserController {
 
     
 
-    /**
-     * 유저 페이지
-     * @param model
-     * @param authentication
-     * @return
-     */
-    @GetMapping("/user_access")
-    public String userAccess(Model model, Authentication authentication) {
-        //Authentication 객체를 통해 유저 정보를 가져올 수 있다.
-        UserVo userVo = (UserVo) authentication.getPrincipal();  //userDetail 객체를 가져옴
-        model.addAttribute("info", userVo.getUserId() +"의 "+ userVo.getUserName()+ "님" + "권한 : " +userVo.getUserAuth() );      //유저 아이디
-        return "user_access";
-    }
+   
 }

@@ -15,7 +15,6 @@ public class UserVo implements UserDetails {
     private int userNo;
     private String userId;
     private String userPw;
-    private String userName;
     private String userAuth;
     private String appendDate;
     private String updateDate;
@@ -53,10 +52,7 @@ public class UserVo implements UserDetails {
         return this.userId;
     }
 
-    // Vo의 userName !
-    public String getUserName(){
-        return this.userName;
-    }
+
 
     @Override
     public boolean isAccountNonExpired() {

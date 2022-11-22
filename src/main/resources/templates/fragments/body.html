@@ -8,7 +8,7 @@ xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
                 <h1>게시판 프로젝트</h1>
                 <div class="top_menu">
                     <div class="login_user" sec:authorize="hasAnyRole('ADMIN','USER')">
-                    <strong>[[ ${#authentication.principal.username} ]]</strong>님 환영합니다.
+                    <h4><strong>[[ ${#authentication.principal.username} ]]</strong>님 환영합니다.</h4>
                     </div>
 
                     
@@ -21,18 +21,20 @@ xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
                     
                     
 
-                <button class="btns btn_st1 btn_mid" type="button" onclick = "location.href='/logout';" sec:authorize="hasAnyRole('ADMIN','USER')">로그아웃</button>
+                <button class="btns btn_st1 btn_mid" type="button" onclick = "logout()" sec:authorize="hasAnyRole('ADMIN','USER')">로그아웃</button>
+                
                 </div>
             </div>
         </header>
 
         <div id="container">
+      
             <div class="menu_toggle"><span></span></div>
-            <!--/* 좌측 영역 */-->
+    
             <div class="lcontent">
-                <!--/* 메뉴 */-->
+<!-- 
                 <nav>
-                <!-- 
+           
                     <ul>
                     
                     
@@ -45,18 +47,19 @@ xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
                         </li>
                         <li><a href="javascript: alert('준비 중입니다.');"><span>회원 관리</span></a></li>
                     </ul>
-                     -->
+                
                 </nav>
+                 -->
             </div>
-
-            <!--/* 우측 영역 */-->
+			 
+     
             <div class="rcontent">
 
-                <!--/* 페이지별 컨텐츠 */-->
+          
                 <th:block layout:fragment="content"></th:block>
 
             </div>
-        </div> <!--/* // #container */-->
+        </div>
         <footer>Copyright YB</footer>
     </div>
 
@@ -67,5 +70,40 @@ xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
     <script src="https://cdn.jsdelivr.net/npm/dayjs@1/dayjs.min.js"></script>
 
     <th:block layout:fragment="script"></th:block>
+    
+    
+    
+    
+    <script>
+
+function logout(){
+
+	if(confirm("로그아웃 하시겠습니까?")){
+		
+		window.location.href = '/logout';
+		
+		
+	}else
+		
+		{
+		
+		return
+		
+		}
+	
+	
+	
+	
+	
+}
+
+
+</script>
+    
+    
+    
+    
 </body>
+
+
 </html>

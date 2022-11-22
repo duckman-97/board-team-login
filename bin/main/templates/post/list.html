@@ -31,11 +31,12 @@
       </div>
 
       <!--/* 리스트 */-->
-      <table class="tb tb_col" >
+      <div style="text-align:center">
+      <table class="table table-hover table-bordered"  >
         <colgroup>
           <col style="width:50px;" /><col style="width:6%;" /><col style="width:auto;" /><col style="width:15%;" />
         </colgroup>
-        <thead>
+        <thead class ="thead-dark">
           <tr>
            
            <!--   <th scope="col" >선택</th> -->
@@ -61,7 +62,7 @@
            -->
         </tbody>
       </table>
-
+	</div>
       <!--/* 페이지네이션 */-->
       <div class="paging">
         <a href="#" class="page_bt first">첫 페이지</a><a href="#" class="page_bt prev">이전 페이지 그룹</a>
@@ -141,7 +142,7 @@
             <tr>
               
                 <td>${row.noticeYn === false ? num-- : '공지'}</td>
-                <td class="tl" ><div style="text-align:center"><a href="/post/view.do?id=${row.id}" >${row.title}</a> </div></td>
+                <td class="tl" ><div style="text-align:center"><a href="/post/view.do?id=${row.id}" >${row.title}</a></div></td>
                 <td>${row.writer}</td>
                 <td>${dayjs(row.createdDate).format('YYYY-MM-DD HH:mm')}</td>
     

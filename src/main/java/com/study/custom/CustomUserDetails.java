@@ -22,7 +22,6 @@ public class CustomUserDetails implements UserDetails{
     private int userNo;
     private String userId;
     private String userPw;
-    private String userName;
     private String userAuth;
     private String appendDate;
     private String updateDate;

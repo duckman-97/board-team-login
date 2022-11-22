@@ -10,7 +10,6 @@
 	<id property = "userId" column="userid"/>
 	<result property ="userid" column = "userid"/>
 	<result property ="userpw" column = "userpw"/>
-	<result property ="username" column = "username"/>
 	<result property ="APPENDDATE" column = "APPENDDATE"/>
 	<result property ="UPDATEDATE" column = "UPDATEDATE"/>
 	<result property ="userauth" column = "userauth"/>
@@ -40,8 +39,8 @@
 
     <insert id="saveUser" parameterType="com.study.user.UserVo">
         INSERT INTO TB_USER
-        (USER_ID, USER_PW, USER_NAME, USER_AUTH, APPEND_DATE, UPDATE_DATE)
-        VALUES(#{userId},#{userPw},#{userName},#{userAuth},#{appendDate},#{updateDate});
+        (USER_ID, USER_PW,  USER_AUTH, APPEND_DATE, UPDATE_DATE)
+        VALUES(#{userId},#{userPw},#{userAuth},#{appendDate},#{updateDate});
     </insert>
 
 
