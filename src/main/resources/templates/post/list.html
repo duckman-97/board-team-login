@@ -172,7 +172,8 @@
             <tr>
               
                 <td>${row.noticeYn === false ? num-- : '공지'}</td>
-                <td class="tl" ><div style="text-align:center"><a href="/post/view.do?id=${row.id}" >${row.title}</a></div></td>
+               
+                <td class="text-left"><a href="javascript: void(0);" onclick="goViewPage(${row.id});">${row.title}</a></td>
                 <td>${row.writer}</td>
                 <td>${dayjs(row.createdDate).format('YYYY-MM-DD HH:mm')}</td>
     
@@ -182,6 +183,15 @@
 
       document.getElementById('list').innerHTML = html;
     }
+    
+    
+    
+    //페이지 이동
+    function goViewPage(id) {
+        const queryString = (location.search) ? location.search + `&id=${id}` : `?id=${id}`;
+        location.href = '/post/view.do' + queryString;
+    }
+    
 
 
     // 페이지 HTML draw

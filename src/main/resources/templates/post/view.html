@@ -50,8 +50,8 @@
                 
                 <button type="button"  onclick="deletePost();" class="btns btn_bdr1 btn_mid" th:if="${#authentication.name == post.writer || #authentication.name == 'admin' }">삭제</button>  
                 
-                
-                <a th:href="@{/post/list.do}" class="btns btn_bdr3 btn_mid">뒤로</a>
+                <a href="javascript: void(0);" onclick="goListPage();" class="btns btn_bdr3 btn_mid">뒤로</a>
+ 
             </p>
         </section>
     </div> <!--/* .content */-->
@@ -66,6 +66,22 @@
 
     /*<![CDATA[*/
 
+    	
+    	//리스트 되돌아가가기
+    	    function goListPage() {
+        const queryString = new URLSearchParams(location.search);
+        queryString.delete('id');
+        location.href = '/post/list.do' + '?' + queryString.toString();
+    }
+    	
+    	
+    	
+    	
+    	
+    	
+    	
+    	
+    	
     // 게시글 삭제
     function deletePost() {
       const id = [[ ${post.id} ]];
