@@ -13,7 +13,7 @@ public class PostResponse {
 	private String content;
 	private String writer;
 	private int viewCnt;
-	private Boolean noticeYn;
+	
 	private Boolean deleteYn;
 	private LocalDateTime createdDate;
 	private LocalDateTime modifiedDate;

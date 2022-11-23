@@ -19,7 +19,7 @@ layout:decorate="layout/basic">
                     <input type="hidden" id="id" name="id" th:if="${post != null}" th:value="${post.id}" />
 
                     <!--/* 서버로 전달할 공지글 여부 */-->
-                    <input type="hidden" id="noticeYn" name="noticeYn" />
+                   
                     <table class="tb tb_row">
                         <colgroup>
                             <col style="width:15%;" /><col style="width:35%;" /><col style="width:15%;" /><col style="width:35%;" />
@@ -100,7 +100,7 @@ layout:decorate="layout/basic">
             	
             	
              	const form =	document.getElementById('saveForm');
-             	const fields = ['id' , 'title' , 'content' , 'writer','noticeYn'];
+             	const fields = ['id' , 'title' , 'content' , 'writer'];
              	//form.isNotice.checked = post.noticeYn;
              	form.createdDate.value = dayjs(post.createdDate).format('YYYY-MM-DD HH:mm');
              	

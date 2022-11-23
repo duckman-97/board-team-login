@@ -56,7 +56,7 @@ public class PostMappertTest {
 		params.setTitle("2번 게시글 제목 수정합니다.");
 		params.setContent("2번 게시글 내용 수정합니다.");
 		params.setWriter("도뎡이");
-		params.setNoticeYn(true);
+
 		postMapper.update(params);
 	}
 	

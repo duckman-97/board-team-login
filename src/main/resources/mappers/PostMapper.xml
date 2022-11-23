@@ -10,7 +10,7 @@
         , content
         , writer
         , view_cnt
-        , notice_yn
+        
         , delete_yn
         , created_date
         , modified_date
@@ -27,7 +27,7 @@
             , #{content}
             , #{writer}
             , 0
-            , #{noticeYn}
+            
             , 0
             , NOW()
             , NULL
@@ -54,7 +54,7 @@
             , title = #{title}
             , content = #{content}
             , writer = #{writer}
-            , notice_yn = #{noticeYn}
+            
         WHERE
             id = #{id}
     </update>

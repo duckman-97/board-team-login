@@ -12,7 +12,7 @@ public class PostRequest {
 
 	private String content;
 	private String writer;
-	private Boolean noticeYn;
+	
 	
 
 }
