@@ -2,6 +2,7 @@ package com.study.domain.post;
 
 import java.util.Collections;
 import java.util.List;
+import java.util.Map;
 
 import javax.transaction.Transactional;
 
@@ -16,7 +17,7 @@ import lombok.RequiredArgsConstructor;
 @Service
 @RequiredArgsConstructor
 public class PostService {
-	
+	String path;
 	private final PostMapper postMapper;
 	
 	
@@ -57,6 +58,62 @@ public class PostService {
         List<PostResponse> list = postMapper.findAll(params);
         return new PagingResponse<>(list, pagination);
     }
+    
+    
+    
+    
+    
+    
+    public String pathMaker(Map<String, Object> queryParams){
+
+    path = "";
+    
+    	
+    	
+    	
+ 	   queryParams.forEach((key, value)->{
+       	
+		   
+		   
+		   if(!key.equals("id")) {
+			   
+			   
+			   if(key.equals("page")) {
+				   
+				   path+=key + "=" + value ;
+				   
+			   }else {
+			   
+			   
+			  path+= "&"+key + "=" + value ;
+			   
+			   }
+			   
+			   
+		   }
+		   
+		   
+	      });
+    	
+    	
+    	
+    	
+    	return path;
+    	
+    	
+    }
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
 
 
 }

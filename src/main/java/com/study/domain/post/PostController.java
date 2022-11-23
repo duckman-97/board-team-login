@@ -2,6 +2,8 @@ package com.study.domain.post;
 
 
 
+import java.util.Map;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -86,12 +88,30 @@ public class PostController {
 	   }
 	   
 	   
+	   
+	   
+	   
+	   
 	   @PostMapping("/post/delete.do")
-	   public String deletePost(@RequestParam final Long id) {
+	   public String deletePost(@RequestParam final Long id,
+			   @RequestParam final Map<String, Object> queryParams
+			   ) {
+		   
+		   String path = postService.pathMaker(queryParams);
+		   
+		   
+		
+		   
+		   
+		   
 		   
 		   	postService.deletePost(id);
-		   	return "redirect:/post/list.do";
+		   	return "redirect:/post/list.do?" + path;
 	   }
+	   
+	   
+	 
+	   
 	   
 	   
 	   
