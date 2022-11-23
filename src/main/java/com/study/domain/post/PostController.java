@@ -45,6 +45,9 @@ public class PostController {
 	
 	   @PostMapping("/post/save.do")
 	    public String savePost(final PostRequest params) {
+		   
+		   
+		   
 	        postService.savePost(params);
 	        return "redirect:/post/list.do";
 	    }
@@ -81,9 +84,11 @@ public class PostController {
 	   }
 	   
 	   @PostMapping("/post/update.do")
-	   public String updatePost(final PostRequest params) {
+	   public String updatePost(final PostRequest params,@RequestParam String URL) {
+		  
+		   
 		   postService.updatePost(params);
-		   return "redirect:/post/list.do";
+		   return "redirect:/post/list.do?" + URL;
 		   
 	   }
 	   

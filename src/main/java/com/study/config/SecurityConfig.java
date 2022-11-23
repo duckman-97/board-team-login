@@ -45,10 +45,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
             .authorizeRequests()
                 .antMatchers( "/all","/login", "/singUp", "/access_denied", "/resources/**","post/list.do").permitAll() // 로그인 권한은 누구나, resources파일도 모든권한
                 // USER, ADMIN 접근 허용
-                .antMatchers("/user_access").hasRole("USER")
-                .antMatchers("/user_access").hasRole("ADMIN")
+                .antMatchers("/post/update.do","/post/delete.do","/post/save.do","/post/write.do").hasAnyRole("USER","ADMIN")
                 .and()
-            .formLogin()
+            .formLogin() 
                 .loginPage("/login")
                 .loginProcessingUrl("/login_proc")
                 .defaultSuccessUrl("/post/list.do")
@@ -62,11 +61,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
             .csrf().disable();		//로그인 창
     }
 
-    /**
-     * 로그인 인증 처리 메소드
-     * @param auth
-     * @throws Exception
-     */
     @Override
     public void configure(AuthenticationManagerBuilder auth) throws Exception {
         auth.userDetailsService(userService).passwordEncoder(new BCryptPasswordEncoder());

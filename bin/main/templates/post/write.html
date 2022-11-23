@@ -49,6 +49,8 @@ layout:decorate="layout/basic">
                             </tr>
                         </tbody>
                     </table>
+                   <input type="hidden" id="URL" name="URL"/>
+                    
                 </form>
                 <p class="btn_set">
                     <button type="button" id="saveBtn" onclick="savePost();" class="btns btn_st3 btn_mid">저장</button>
@@ -128,6 +130,32 @@ layout:decorate="layout/basic">
                     isValid(fields[i], fieldNames[i]);
                 }
 
+                let URL = '';
+                
+                new URLSearchParams(location.search).forEach((value, key) => {
+                	
+         		   if(!(key=="id")) {
+        			   
+        			   
+        			   if(key=="page") {
+        				   
+        				   URL += key + "=" + value ;
+        				   
+        			   }else {
+        			   
+        			   
+        				   URL+= "&"+key + "=" + value ;
+        			   
+        			   }
+        			   
+        			   
+        		   }
+    	        })
+                
+              	document.getElementById('URL').value = URL;
+              	
+                
+                
                 document.getElementById('saveBtn').disabled = true;
                 //form.noticeYn.value = form.isNotice.checked;
                 form.action = [[ ${post == null} ]] ? '/post/save.do' : '/post/update.do';
