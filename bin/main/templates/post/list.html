@@ -7,21 +7,23 @@
 </th:block>
 
 <th:block layout:fragment="content">
-  <div class="page_tits">
-    <h3>Board Project</h3>
+
+
+  <div class="page_tits" style="margin-top:10px; margin-left:10px;">
+    <h1><strong> Board Project</strong></h1>
    <!--  <p class="path"><strong>현재 위치 :</strong> <span>게시판 관리</span> <span>리스트형</span> <span>리스트</span></p> -->
   </div>
-<body>
+<body >
 
 
 
-  <div id="content">
+  <div id="content" >
     <section>
       <!--/* 검색 */-->
-      <div class="search_box">
+      <div class="search_box" style="margin:50px; background-color: gainsboro" >
         <form id="searchForm" onsubmit="return false;" autocomplete="off">
-          <div class="sch_group fl">
-            <select id = "searchType" title="검색 유형 선택">
+          <div class="sch_group fl"  >
+            <select id = "searchType"  title="검색 유형 선택">
               <option value="">전체 검색</option>
               <option value="title">제목</option>
               <option value="content">내용</option>
@@ -37,8 +39,9 @@
       </div>
 
       <!--/* 리스트 */-->
-      <div style="text-align:center">
-      <table class="table table-hover table-bordered"  >
+  
+      <div style="text-align:center; margin-left:50px; margin-right:50px;"   >
+      <table class="table table-hover table-bordered" >
         <colgroup>
           <col style="width:50px;" /><col style="width:6%;" /><col style="width:auto;" /><col style="width:15%;" />
         </colgroup>
@@ -69,6 +72,8 @@
         </tbody>
       </table>
 	</div>
+	
+
       <!--/* 페이지네이션 */-->
       <div class="paging">
         <a href="#" class="page_bt first">첫 페이지</a><a href="#" class="page_bt prev">이전 페이지 그룹</a>
@@ -85,7 +90,7 @@
        
  -->
  
-        	<button class= "btns btn_st3 btn_mid" onclick="savePost();"  sec:authorize="isAnonymous">글작성</button>
+        	<button class= "btns btn_st3 btn_mid" onclick="savePost();"  sec:authorize="isAnonymous" style="margin-right:30px;">글작성</button>
         	<a th:href="@{/post/write.do}" class="btns btn_st3 btn_mid" sec:authorize="hasAnyRole('ADMIN','USER')">글작성</a>
       
       <script>

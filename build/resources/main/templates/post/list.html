@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="layout/basic">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.7.1/font/bootstrap-icons.css">
+
+<th:block layout:fragment="title">
+  <title>리스트 페이지</title>
+</th:block>
+
+<th:block layout:fragment="content">
+  <div class="page_tits">
+    <h3>Board Project</h3>
+   <!--  <p class="path"><strong>현재 위치 :</strong> <span>게시판 관리</span> <span>리스트형</span> <span>리스트</span></p> -->
+  </div>
+<body>
+
+
+
+  <div id="content">
+    <section>
+      <!--/* 검색 */-->
+      <div class="search_box">
+        <form id="searchForm" onsubmit="return false;" autocomplete="off">
+          <div class="sch_group fl">
+            <select id = "searchType" title="검색 유형 선택">
+              <option value="">전체 검색</option>
+              <option value="title">제목</option>
+              <option value="content">내용</option>
+               <option value="writer">작성자</option>
+            </select>
+              <input type="text" id="keyword"   placeholder="키워드를 입력해 주세요." />
+          <button type="button" onclick="movePage(1);" class="fas fa-search"><span class="glyphicon glyphicon-search" aria-hidden="true"></span></button>
+  		 <a th:href ="@{/post/list.do}"><button type="button" >초기화</button></a>
+  		 
+  	
+          </div>
+        </form>
+      </div>
+
+      <!--/* 리스트 */-->
+      <div style="text-align:center">
+      <table class="table table-hover table-bordered"  >
+        <colgroup>
+          <col style="width:50px;" /><col style="width:6%;" /><col style="width:auto;" /><col style="width:15%;" />
+        </colgroup>
+        <thead class ="thead-dark">
+          <tr>
+           
+           <!--   <th scope="col" >선택</th> -->
+            <th scope="col" width="5%">번호</th>
+            <th scope="col" width = "30%">제목</th>
+            <th scope="col" width="10%">작성자</th>
+            <th scope="col"width="10%">등록일</th>
+          </tr>
+        </thead>
+        <tbody id = "list" >
+        <!-- 
+          <tr th:if="${not #lists.isEmpty( posts )}" th:each="row, status : ${posts}">
+           
+            <td th:text="${row.noticeYn == false ? (status.size - status.index) : '공지'}"></td>
+            <td><a th:href="@{/post/view.do( id=${row.id} )}" th:text="${row.title}"></a></td>
+           <td  th:text="${row.writer}"></td>
+            <td th:text="${#temporals.format( row.createdDate, 'yyyy-MM-dd HH:mm' )}"></td>
+          </tr>
+
+          <tr th:unless="${not #lists.isEmpty( posts )}">
+            <td colspan="5"><div class="no_data_msg">등록된 게시글이 없습니다.</div></td>
+          </tr>
+           -->
+        </tbody>
+      </table>
+	</div>
+      <!--/* 페이지네이션 */-->
+      <div class="paging">
+        <a href="#" class="page_bt first">첫 페이지</a><a href="#" class="page_bt prev">이전 페이지 그룹</a>
+        <p><span class="on">1</span><a href="#">2</a><a href="#">3</a><a href="#">4</a><a href="#">5</a><a href="#">6</a><a href="#">7</a><a href="#">8</a><a href="#">9</a><a href="#">10</a></p>
+        <a href="#" class="page_bt next">다음 페이지 그룹</a><a href="#" class="page_bt last">마지막 페이지</a>
+      </div>
+
+      <!--/* 버튼 */-->
+      <p class="btn_set tr">
+      
+      <!-- 
+     <a th:href="@{/login}" class="btns btn_st3 btn_mid" sec:authorize="isAnonymous" onclick="savePost();" >글작성</a>
+        <a th:href="@{/post/write.do}" class="btns btn_st3 btn_mid" sec:authorize="hasRole('USER')">글작성</a>
+       
+ -->
+ 
+        	<button class= "btns btn_st3 btn_mid" onclick="savePost();"  sec:authorize="isAnonymous">글작성</button>
+        	<a th:href="@{/post/write.do}" class="btns btn_st3 btn_mid" sec:authorize="hasAnyRole('ADMIN','USER')">글작성</a>
+      
+      <script>
+	function savePost(){
+	alert('로그인이 필요한 서비스입니다.');
+	window.location.href = '/login';
+
+}
+</script>
+      
+      
+      </p>
+    </section>
+  </div> <!--/* .content */-->
+  
+  
+  
+  
+  
+  
+  
+  
+  
+</th:block>
+
+<th:block layout:fragment="script">
+  <script th:inline="javascript">
+    /*<![CDATA[*/
+
+    window.onload = () => {
+    	setQueryStringParams();
+      findAllPost();
+    }
+			
+    
+    // 쿼리 스트링 파라미터 셋팅
+    function setQueryStringParams() {
+
+        if ( !location.search ) {
+            return false;
+        }
+
+        const form = document.getElementById('searchForm');
+
+        new URLSearchParams(location.search).forEach((value, key) => {
+            if (form[key]) {
+                form[key].value = value;
+            }
+        })
+
+        
+    }
+    
+    
+    
+    
+    
+    
+    
+    
+    
+               
+    // 게시글 리스트 조회
+    function findAllPost() {
+
+      const list = [[ ${response.list} ]];
+      if ( !list.length ) {
+        document.getElementById('list').innerHTML = '<td colspan="6"><div className="no_data_msg">검색된 결과가 없습니다.</div></td>';
+        drawPage();
+      }
+
+      const pagination = [[ ${response.pagination} ]];
+      const params = [[ ${params} ]];
+      let num = pagination.totalRecordCount - ((params.page - 1) * params.recordSize);
+
+      drawList(list, num);
+      drawPage(pagination, params);
+    }
+
+
+    // 리스트 HTML draw
+    function drawList(list, num) {
+
+      let html = '';
+
+      list.forEach(row => {
+        html += `
+            <tr>
+              
+                <td>${ num-- }</td>
+               
+                <td class="text-left"><a href="javascript: void(0);" onclick="goViewPage(${row.id});">${row.title}</a></td>
+                <td>${row.writer}</td>
+                <td>${dayjs(row.createdDate).format('YYYY-MM-DD HH:mm')}</td>
+    
+            </tr>
+        `;
+      })
+
+      document.getElementById('list').innerHTML = html;
+    }
+    
+    
+    
+    //페이지 이동
+    function goViewPage(id) {
+        const queryString = (location.search) ? location.search + `&id=${id}` : `?id=${id}`;
+        location.href = '/post/view.do' + queryString;
+    }
+    
+
+
+    // 페이지 HTML draw
+    function drawPage(pagination, params) {
+
+      if ( !pagination || !params ) {
+        document.querySelector('.paging').innerHTML = '';
+        throw new Error('Missing required parameters...');
+      }
+
+      let html = '';
+
+      // 첫 페이지, 이전 페이지
+      if (pagination.existPrevPage) {
+        html += `
+            <a href="javascript:void(0);" onclick="movePage(1)" class="page_bt first">첫 페이지</a>
+            <a href="javascript:void(0);" onclick="movePage(${pagination.startPage - 1})" class="page_bt prev">이전 페이지</a>
+        `;
+      }
+
+      // 페이지 번호
+      html += '<p>';
+      for (let i = pagination.startPage; i <= pagination.endPage; i++) {
+        html += (i !== params.page)
+                ? `<a href="javascript:void(0);" onclick="movePage(${i});">${i}</a>`
+                : `<span class="on">${i}</span>`
+      }
+      html += '</p>';
+
+      // 다음 페이지, 마지막 페이지
+      if (pagination.existNextPage) {
+        html += `
+            <a href="javascript:void(0);" onclick="movePage(${pagination.endPage + 1});" class="page_bt next">다음 페이지</a>
+            <a href="javascript:void(0);" onclick="movePage(${pagination.totalPageCount});" class="page_bt last">마지막 페이지</a>
+        `;
+      }
+
+      document.querySelector('.paging').innerHTML = html;
+    }
+
+
+    // 페이지 이동
+    function movePage(page) {
+
+        const form = document.getElementById('searchForm');
+        const queryParams = {
+            page: (page) ? page : 1,
+            recordSize: 10,
+            pageSize: 10,
+            keyword: form.keyword.value,
+            searchType: form.searchType.value
+        }
+
+        location.href = location.pathname + '?' + new URLSearchParams(queryParams).toString();
+    }
+
+    /*]]>*/
+  </script>
+</th:block>
+
+
+</html>
+	
+	
+	

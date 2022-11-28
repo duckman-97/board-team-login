@@ -47,6 +47,29 @@
 
 
 <script>
+  $.ajax({
+	type : 'get',
+	url : '/test',
+	dataType : 'text',
+	data :JSON.stringify({
+		"text" : text,
+		"num" : num
+	
+	}),
+    success : function(result) { // 결과 성공 콜백함수
+        console.log(result);
+    }
+   
+	
+	
+  
+  
+  
+  })
+  
+  
+  
+   
    
    
 </script>

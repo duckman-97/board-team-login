@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.study.user.UserMapper">
+
+
+
+
+	<resultMap type = "com.study.user.UserVo" id = "userMap">
+	
+	<id property = "userId" column="userid"/>
+	<result property ="userid" column = "userid"/>
+	<result property ="userpw" column = "userpw"/>
+	<result property ="APPENDDATE" column = "APPENDDATE"/>
+	<result property ="UPDATEDATE" column = "UPDATEDATE"/>
+	<result property ="userauth" column = "userauth"/>
+	
+	</resultMap>
+
+
+
+
+
+
+
+
+
+
+   
+    <select id="getUserAccount" resultType="com.study.user.UserVo">
+        SELECT * FROM TB_USER
+        WHERE USER_ID= #{userId}
+    </select>
+
+
+
+	
+
+
+
+    <insert id="saveUser" parameterType="com.study.user.UserVo">
+        INSERT INTO TB_USER
+        (USER_ID, USER_PW,  USER_AUTH, APPEND_DATE, UPDATE_DATE)
+        VALUES(#{userId},#{userPw},#{userAuth},#{appendDate},#{updateDate});
+    </insert>
+
+
+
+
+
+</mapper>
