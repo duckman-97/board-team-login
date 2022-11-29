@@ -23,6 +23,8 @@ public class CommentController {
 	@Autowired
 	private CommentService service;
 	
+	
+	//댓글 입력
 	@PostMapping("/InsertComment")
 	public String InsertComment(@RequestBody CommentVO vo,HttpSession session) {
 		System.out.println("댓글 등록 통신 성공");
@@ -39,7 +41,7 @@ public class CommentController {
 	
 
 
-
+	//댓글 목록
 	@GetMapping("/CommentList/{bno}")
 	public Map<String, Object> getList(@PathVariable int bno, Model model) {
 		
@@ -57,7 +59,7 @@ public class CommentController {
 	}
 	
 	
-
+	//삭제
 	@GetMapping("/commentDelete/{cno}")
 	public void deleteComment(@PathVariable int cno) {
 		System.out.println("삭제 컨트롤러");
@@ -70,6 +72,24 @@ public class CommentController {
 		
 		
 	}
+	
+	//댓글 갯수
+	@GetMapping("/commentCount/{bno}")
+	public int getCount(@PathVariable int bno) {
+		
+		
+		
+		
+		
+		
+		return service.getTotal(bno);
+		
+		
+		
+	}
+	
+	
+	
 	
 	
 }
