@@ -91,7 +91,7 @@
  -->
  
         	<button class= "btns btn_st3 btn_mid" onclick="savePost();"  sec:authorize="isAnonymous" style="margin-right:30px;">글작성</button>
-        	<a th:href="@{/post/write.do}" class="btns btn_st3 btn_mid" sec:authorize="hasAnyRole('ADMIN','USER')">글작성</a>
+        	<a th:href="@{/post/write.do}" class="btns btn_st3 btn_mid" sec:authorize="hasAnyRole('ADMIN','USER')" style="margin-right:30px;">글작성</a>
       
       <script>
 	function savePost(){

@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+  <mapper namespace="com.study.comment.CommentMapper">
+  	
+  	<insert id="CommentRegist">
+  		insert into comment(bno,writer,content)
+		values (#{bno},#{writer},#{content})
+		
+  	</insert>
+  	
+  	<select id="getTotal" resultType="int">
+  		select count(*) from comment where bno = #{bno}
+  	</select>
+  	
+  	<select id="getList" resultType="com.study.comment.CommentVO">
+  		select * from comment where bno = #{bno}
+  		order by cno desc
+
+  	</select>
+  	
+  	<select id="myRecord" resultType="com.study.comment.CommentVO">
+		SELECT * FROM comment
+		WHERE writer = #{writer}
+	</select>
+	
+	<delete id="commentDelete">
+		DELETE FROM comment
+		WHERE  cno = #{cno}
+	</delete>
+	
+	<select id="getComList" resultType="com.study.comment.CommentVO">
+        select * from comment where writer = #{writer}
+     </select>
+	
+  </mapper>

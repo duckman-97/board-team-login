@@ -58,7 +58,7 @@ public class PostController {
 	   
 	   
 	   
-	   @GetMapping("/post/list.do")
+	   @GetMapping(value = {"/", "/post/list.do"})
 	   public String openPostList(@ModelAttribute("params") final SearchDto params,Model model ) {
 		   
 	        PagingResponse<PostResponse> response = postService.findAllPost(params);

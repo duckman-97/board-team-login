@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="ko" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" xmlns:sec="http://www.thymeleaf.org/extras/spring-security" layout:decorate="layout/basic">
+
 <th:block layout:fragment="title">
 
 
@@ -12,6 +13,8 @@
        
     </div>
 
+
+	
     <div class="content" style="margin: 50px;">
         <section>
             <table class="tb tb_row">
@@ -62,6 +65,322 @@
             </p>
         </section>
     </div> <!--/* .content */-->
+   
+   
+   
+   
+   
+   
+                   
+
+
+<!--  댓글 -->
+<div style = "margin-left:50px; margin-right:50px;">
+
+
+
+
+<div class="card" sec:authorize="hasAnyRole('ADMIN','USER')">
+  
+		<input type="text" class="form-control" id="writer" placeholder="이름" name ="writer" th:value="${#authentication.name}" readonly  style="width: 200px; border:none; margin-left:20px; margin-top:20px;">
+	                      
+	<div class ="card-body"><textarea class ="form-constrol" row ="1" id="content" placeholder="내용을 입력해 주세요" ></textarea></div>
+	<div class="card-footer"><button class = "btn btn-primary" onclick="commentClick();">등록</button></div>
+
+</div>
+
+
+
+
+<br/>
+
+<div class = "card">
+	<div class = "card-header">댓글 리스트</div>
+	<div class="list">
+	
+	
+	
+	
+	
+
+	
+	
+	
+	
+	
+	
+	
+</div>
+</div>
+</div>
+
+<input id= "userName" type="hidden" th:value="${#authentication.name}">
+ 
+
+
+
+<script src="http://code.jquery.com/jquery-latest.js"></script> 
+
+<script>
+/*<![CDATA[*/
+	
+	$(document).ready(function(){
+		
+		getList()
+		
+});  
+	
+	
+	
+	
+	
+	
+	
+var item;
+var html = new URLSearchParams(location.search);
+
+
+
+//댓글 불러오기 시작
+function getList(){
+
+	console.log('test : ' + html.get('id'));
+	
+			
+$.ajax({
+	url : "/Comment/CommentList/"  + html.get('id'),
+	type : 'GET',
+	async :true,
+	dataType:'json',
+	
+	data : {
+	
+
+    
+	},
+	success : function(data) { // controllor에서 list를 return 받았음
+		
+		
+
+	
+
+	innerString = "";
+	
+
+	if(data.total>0){
+	
+		
+		console.log(data);
+		
+		innerString += '<ul class="list-group">'
+		for (var i = 0; i < data.total; i++) {
+		writer= data.list[i].writer;
+		content=data.list[i].content;
+		cno=data.list[i].cno;
+		
+		
+
+	
+		
+		innerString += '<li id="comment--1" class = "list-group-item d-flex justify-content-between"><div style="font-size:17px;">'+content+'</div><div class="d-flex"><div > 작성자 : '+writer+'  </div>';
+		
+		if(document.getElementById('userName').value == writer){
+		innerString += '<button class="btn btn-danger" onclick="deleteComment('+ cno+')" style="margin-left:10px;">삭제</button>';
+		}
+		
+		innerString +='</div></li>';
+		
+		
+		
+		
+		
+		
+		}
+		
+
+	
+	}else{
+		
+		
+		innerString ='<li id="comment--1" class = "list-group-item d-flex justify-content-between">등록된 댓글이 없습니다.</li>';
+		
+	}
+	
+	
+	innerString += '</ul>'
+	
+	
+	
+	
+	$(".comment--box").html(innerString);
+	$(".list").html(innerString);
+	
+		
+	},
+    	
+	error : function() {
+		alert("error");
+	}
+	
+	
+	
+	
+	
+	
+});
+
+		}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+//댓글 추가 스크립트
+
+function commentClick(){
+			
+   			//Json으로 전달할 파라미터 변수선언
+   			const bno = html.get('id');
+   			const writer = $('#writer').val();
+   			const content = $('#content').val();
+   			
+   		
+   			
+   			if(content==""){
+   				alert('댓글 내용을 입력해 주세요.')
+   				return;
+   				
+   			}
+   		
+   		
+   			$.ajax({
+   				type:'post',
+   				
+   				url:'/Comment/InsertComment',
+   				data: JSON.stringify(
+   					{
+   						"bno":bno,
+   						"writer":writer,
+   						"content":content
+   					}		
+   				),
+   				contentType: 'application/json',
+   				success:function(data){
+   					
+   					if(data === 'InsertSuccess') {
+   						
+   						
+   						$('#writer').val(writer);
+   	   					$('#content').val('');
+   	   				
+   					} else {
+   						alert('댓글 등록 실패');
+   						
+   					}
+   					
+   					
+   					getList();
+   					
+   				},
+   				error:function(){
+   					alert('통신실패');
+   				}
+   			
+
+   			
+   			});// 댓글 비동기 끝
+
+		
+		};// 댓글등록 이벤트 끝
+		
+		
+		
+		
+		
+
+	//댓글 삭제
+	function deleteComment(cno){
+	
+			
+	if ( !confirm("댓글을 삭제할까요?") ) {
+		return;
+	}
+			
+$.ajax({	
+	url:'/Comment/commentDelete/' + cno,
+	type : 'GET',
+	dataType:'json',
+	data : {
+		
+
+    
+	},
+
+	
+	success : function() { 
+		
+		
+	
+	
+	getList();
+
+	
+	
+
+
+		
+	}
+	,
+    	
+	error : function() {
+		getList();
+	}
+	
+	
+	
+	
+	
+	
+});
+
+		}
+
+
+
+
+
+
+		
+
+
+
+
+
+
+
+
+
+
+
+
+
+/*]]>*/
+</script>
+    <!-- ㄲ끝 -->
+    
+    
+    
+    
     
     
     
@@ -135,26 +454,7 @@
     	        document.body.append(form);
     	        document.getElementById('deleteForm').submit();
     	    }
-    	/*
-    // 게시글 삭제
-    function deletePost() {
-      const id = [[ ${post.id} ]];
-
-      if ( !confirm('게시글을 삭제할까요?') ) {
-        return false;
-      }
-
-      const formHtml = `
-          <form id="deleteForm" action="/post/delete.do" method="post">
-              <input type="hidden" id="id" name="id" value="${id}" />
-          </form>
-      `;
-      const doc = new DOMParser().parseFromString(formHtml, 'text/html');
-      const form = doc.body.firstChild;
-      document.body.append(form);
-      document.getElementById('deleteForm').submit();
-    }
-    	*/
+    
 
     /*]]>*/
   </script>
