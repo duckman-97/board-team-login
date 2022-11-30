@@ -7,12 +7,12 @@ layout:decorate="layout/basic">
     </th:block>
 
     <th:block layout:fragment="content">
-        <div class="page_tits">
-            <h3>게시판 관리</h3>
+        <div class="page_tits" style="margin-top:10px; margin-left:10px;">
+            <h3><strong>게시판 관리</strong></h3>
             
         </div>
 
-        <div class="content">
+        <div class="content" style="margin:50px;">
             <section>
                 <form id="saveForm" method="post" autocomplete="off">
                     <!--/* 게시글 수정인 경우, 서버로 전달할 게시글 번호 (PK) */-->
@@ -28,23 +28,23 @@ layout:decorate="layout/basic">
                             <tr>
    
 
-                                <th scope="row">등록일</th>
+                                <th scope="row" style="background-color:Dimgray; color:white;">등록일</th>
                                 <td colspan="3"><input type="text" id="createdDate" name="createdDate" readonly /></td>
                             </tr>
 
                             <tr>
-                                <th>제목 <span class="es">필수 입력</span></th>
+                                <th style="background-color:Dimgray; color:white;">제목 <span class="es" >필수 입력</span></th>
                                 <td colspan="3"><input type="text" id="title" name="title" maxlength="50" placeholder="제목을 입력해 주세요." /></td>
                             </tr>
 
                             <tr>
-                                <th>이름 <span class="es"  >필수 입력</span></th>
+                                <th style="background-color:Dimgray; color:white;">이름 <span class="es"  >필수 입력</span></th>
                                 <td colspan="3"><input type="text" id="writer" name="writer" maxlength="10" placeholder="이름을 입력해 주세요." th:value="${#authentication.name}" readonly = "readonly" ></td>
                             
                             </tr>
 
                             <tr>
-                                <th>내용 <span class="es">필수 입력</span></th>
+                                <th style="background-color:Dimgray; color:white;">내용 <span class="es">필수 입력</span></th>
                                 <td colspan="3"><textarea id="content" name="content" cols="50" rows="10" placeholder="내용을 입력해 주세요." ></textarea></td>
                             </tr>
                         </tbody>

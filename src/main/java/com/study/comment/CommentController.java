@@ -27,12 +27,11 @@ public class CommentController {
 	//댓글 입력
 	@PostMapping("/InsertComment")
 	public String InsertComment(@RequestBody CommentVO vo,HttpSession session) {
-		System.out.println("댓글 등록 통신 성공");
-
-			System.out.println("로긘함. 스크랩 진행");
+	
+			
 			
 			service.CommentRegist(vo);
-			System.out.println("댓글 등록 서비스 성공");
+	
 			return "InsertSuccess";
 		
 	}
@@ -59,10 +58,10 @@ public class CommentController {
 	}
 	
 	
-	//삭제
+	//댓글 삭제
 	@GetMapping("/commentDelete/{cno}")
 	public void deleteComment(@PathVariable int cno) {
-		System.out.println("삭제 컨트롤러");
+	
 		
 		service.commentDelete(cno);
 		
@@ -73,21 +72,29 @@ public class CommentController {
 		
 	}
 	
+	
+	
+	
 	//댓글 갯수
 	@GetMapping("/commentCount/{bno}")
 	public int getCount(@PathVariable int bno) {
+		int commentCount = service.getTotal(bno);
 		
 		
 		
 		
 		
 		
-		return service.getTotal(bno);
+		
+		
+		
+		return commentCount;
 		
 		
 		
 	}
 	
+
 	
 	
 	

@@ -7,21 +7,24 @@
 </th:block>
 
 <th:block layout:fragment="content">
-  <div class="page_tits">
-    <h3>Board Project</h3>
+
+
+
+  <div class="page_tits" style="margin-top:10px; margin-left:10px;">
+    <h1><strong> Board Project</strong></h1>
    <!--  <p class="path"><strong>현재 위치 :</strong> <span>게시판 관리</span> <span>리스트형</span> <span>리스트</span></p> -->
   </div>
-<body>
+<body >
 
 
 
-  <div id="content">
+  <div id="content" >
     <section>
       <!--/* 검색 */-->
-      <div class="search_box">
+      <div class="search_box" style="margin:50px; background-color: gainsboro" >
         <form id="searchForm" onsubmit="return false;" autocomplete="off">
-          <div class="sch_group fl">
-            <select id = "searchType" title="검색 유형 선택">
+          <div class="sch_group fl"  >
+            <select id = "searchType"  title="검색 유형 선택">
               <option value="">전체 검색</option>
               <option value="title">제목</option>
               <option value="content">내용</option>
@@ -29,7 +32,7 @@
             </select>
               <input type="text" id="keyword"   placeholder="키워드를 입력해 주세요." />
           <button type="button" onclick="movePage(1);" class="fas fa-search"><span class="glyphicon glyphicon-search" aria-hidden="true"></span></button>
-  		 <a th:href ="@{/post/list.do}"><button type="button" >초기화</button></a>
+  		 <a th:href ="@{/post/list.do}"><button type="button" style="width:100px; background-color:mediumseagreen;" > 검색 초기화</button></a>
   		 
   	
           </div>
@@ -37,8 +40,9 @@
       </div>
 
       <!--/* 리스트 */-->
-      <div style="text-align:center">
-      <table class="table table-hover table-bordered"  >
+  
+      <div style="text-align:center; margin-left:50px; margin-right:50px;"   >
+      <table class="table table-hover table-bordered" >
         <colgroup>
           <col style="width:50px;" /><col style="width:6%;" /><col style="width:auto;" /><col style="width:15%;" />
         </colgroup>
@@ -53,22 +57,12 @@
           </tr>
         </thead>
         <tbody id = "list" >
-        <!-- 
-          <tr th:if="${not #lists.isEmpty( posts )}" th:each="row, status : ${posts}">
-           
-            <td th:text="${row.noticeYn == false ? (status.size - status.index) : '공지'}"></td>
-            <td><a th:href="@{/post/view.do( id=${row.id} )}" th:text="${row.title}"></a></td>
-           <td  th:text="${row.writer}"></td>
-            <td th:text="${#temporals.format( row.createdDate, 'yyyy-MM-dd HH:mm' )}"></td>
-          </tr>
 
-          <tr th:unless="${not #lists.isEmpty( posts )}">
-            <td colspan="5"><div class="no_data_msg">등록된 게시글이 없습니다.</div></td>
-          </tr>
-           -->
         </tbody>
       </table>
 	</div>
+	
+
       <!--/* 페이지네이션 */-->
       <div class="paging">
         <a href="#" class="page_bt first">첫 페이지</a><a href="#" class="page_bt prev">이전 페이지 그룹</a>
@@ -85,8 +79,8 @@
        
  -->
  
-        	<button class= "btns btn_st3 btn_mid" onclick="savePost();"  sec:authorize="isAnonymous">글작성</button>
-        	<a th:href="@{/post/write.do}" class="btns btn_st3 btn_mid" sec:authorize="hasAnyRole('ADMIN','USER')">글작성</a>
+        	<button class= "btns btn_st3 btn_mid" onclick="savePost();"  sec:authorize="isAnonymous" style="margin-right:30px;">글작성</button>
+        	<a th:href="@{/post/write.do}" class="btns btn_st3 btn_mid" sec:authorize="hasAnyRole('ADMIN','USER')" style="margin-right:30px;">글작성</a>
       
       <script>
 	function savePost(){
@@ -169,6 +163,8 @@
     // 리스트 HTML draw
     function drawList(list, num) {
 
+
+    
       let html = '';
 
       list.forEach(row => {
@@ -177,7 +173,7 @@
               
                 <td>${ num-- }</td>
                
-                <td class="text-left"><a href="javascript: void(0);" onclick="goViewPage(${row.id});">${row.title}</a></td>
+                <td class="text-left"><a href="javascript: void(0);" onclick="goViewPage(${row.id});">${row.title} &nbsp;(${getCountByBno(row.id)}) </a></td>
                 <td>${row.writer}</td>
                 <td>${dayjs(row.createdDate).format('YYYY-MM-DD HH:mm')}</td>
     
@@ -252,6 +248,70 @@
         location.href = location.pathname + '?' + new URLSearchParams(queryParams).toString();
     }
 
+    
+    
+    
+    
+    
+    //bno 별 댓글갯수 가져오기
+   
+    function getCountByBno(bno){
+    		
+		var result;
+		
+    	
+     	
+    	$.ajax({
+    		url : "/Comment/commentCount/"  + bno,
+    		type : 'GET',
+    		async: false, 
+    		dataType:'json',
+    		
+    		data : {
+    		
+
+    	    
+    		},
+    		success : function(data) { // controllor에서 list를 return 받았음
+    		
+    			
+    			result = data;
+    			
+    			
+    			
+    		}
+    		
+    		
+    		
+    		,error : function(){
+    			alert("error");
+    			
+    		}
+    		
+    		});
+    	
+    	return result;
+    	
+    
+ 	
+    	
+    	
+    			
+    }
+
+    	
+    	
+    	
+    	
+    	
+    	
+    
+    
+    
+    
+    
+    
+    
     /*]]>*/
   </script>
 </th:block>

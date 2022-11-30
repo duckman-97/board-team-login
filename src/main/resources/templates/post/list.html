@@ -9,6 +9,7 @@
 <th:block layout:fragment="content">
 
 
+
   <div class="page_tits" style="margin-top:10px; margin-left:10px;">
     <h1><strong> Board Project</strong></h1>
    <!--  <p class="path"><strong>현재 위치 :</strong> <span>게시판 관리</span> <span>리스트형</span> <span>리스트</span></p> -->
@@ -31,7 +32,7 @@
             </select>
               <input type="text" id="keyword"   placeholder="키워드를 입력해 주세요." />
           <button type="button" onclick="movePage(1);" class="fas fa-search"><span class="glyphicon glyphicon-search" aria-hidden="true"></span></button>
-  		 <a th:href ="@{/post/list.do}"><button type="button" >초기화</button></a>
+  		 <a th:href ="@{/post/list.do}"><button type="button" style="width:100px; background-color:mediumseagreen;" > 검색 초기화</button></a>
   		 
   	
           </div>
@@ -56,19 +57,7 @@
           </tr>
         </thead>
         <tbody id = "list" >
-        <!-- 
-          <tr th:if="${not #lists.isEmpty( posts )}" th:each="row, status : ${posts}">
-           
-            <td th:text="${row.noticeYn == false ? (status.size - status.index) : '공지'}"></td>
-            <td><a th:href="@{/post/view.do( id=${row.id} )}" th:text="${row.title}"></a></td>
-           <td  th:text="${row.writer}"></td>
-            <td th:text="${#temporals.format( row.createdDate, 'yyyy-MM-dd HH:mm' )}"></td>
-          </tr>
 
-          <tr th:unless="${not #lists.isEmpty( posts )}">
-            <td colspan="5"><div class="no_data_msg">등록된 게시글이 없습니다.</div></td>
-          </tr>
-           -->
         </tbody>
       </table>
 	</div>
@@ -174,6 +163,8 @@
     // 리스트 HTML draw
     function drawList(list, num) {
 
+
+    
       let html = '';
 
       list.forEach(row => {
@@ -182,7 +173,7 @@
               
                 <td>${ num-- }</td>
                
-                <td class="text-left"><a href="javascript: void(0);" onclick="goViewPage(${row.id});">${row.title}</a></td>
+                <td class="text-left"><a href="javascript: void(0);" onclick="goViewPage(${row.id});">${row.title} &nbsp;(${getCountByBno(row.id)}) </a></td>
                 <td>${row.writer}</td>
                 <td>${dayjs(row.createdDate).format('YYYY-MM-DD HH:mm')}</td>
     
@@ -263,17 +254,58 @@
     
     
     //bno 별 댓글갯수 가져오기
+   
     function getCountByBno(bno){
-  
+    		
+		var result;
+		
+    	
+     	
+    	$.ajax({
+    		url : "/Comment/commentCount/"  + bno,
+    		type : 'GET',
+    		async: false, 
+    		dataType:'json',
+    		
+    		data : {
+    		
+
+    	    
+    		},
+    		success : function(data) { // controllor에서 list를 return 받았음
+    		
+    			
+    			result = data;
+    			
+    			
+    			
+    		}
+    		
+    		
+    		
+    		,error : function(){
+    			alert("error");
+    			
+    		}
+    		
+    		});
+    	
+    	return result;
+    	
+    
+ 	
     	
     	
-    	
-    	
-    	
-    	
-    	
-    	
+    			
     }
+
+    	
+    	
+    	
+    	
+    	
+    	
+    
     
     
     

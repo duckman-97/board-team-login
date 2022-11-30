@@ -45,7 +45,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
             .authorizeRequests()
                 .antMatchers( "/all","/login", "/singUp", "/access_denied", "/resources/**","post/list.do").permitAll() // 로그인 권한은 누구나, resources파일도 모든권한
                 // USER, ADMIN 접근 허용
-                .antMatchers("/post/update.do","/post/delete.do","/post/save.do","/post/write.do").hasAnyRole("USER","ADMIN")
+                .antMatchers("/post/update.do","/post/delete.do","/post/save.do","/post/write.do","/Comment/InsertComment","/Comment/commentDelete").hasAnyRole("USER","ADMIN")
                 .and()
             .formLogin() 
                 .loginPage("/login")

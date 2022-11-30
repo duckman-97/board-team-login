@@ -1,21 +1,37 @@
 <!DOCTYPE html>
 <html lang="ko" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
 xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
-<body th:fragment="main-body">
+<body th:fragment="main-body" >
+
+
+
+
     <div id="adm_wrap">
-        <header>
-            <div class="head">
-             
-                <div class="top_menu">
+    
+   
+        <header >
+            <div class="head"  >
+            
+            
+   
+       
+  			
+ 		
+            
+                <div class="top_menu" >
+                
+           
+  
+  
+  
                     <div class="login_user" sec:authorize="hasAnyRole('ADMIN','USER')">
-                    <h4><strong>[[ ${#authentication.principal.username} ]]</strong>님 환영합니다.</h4>
+                    <h4><strong style="color:cornflowerblue">[[ ${#authentication.principal.username} ]]</strong>님 환영합니다.</h4>
                     </div>
 
                     
                     
                       <div class="login_user" sec:authorize="isAnonymous()">
                       <a href = "/login"  class="btns btn_st4 btn_mid"> 로그인</a>
-                      
                       </div>
                       
                     
@@ -26,13 +42,15 @@ xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
                 </div>
             </div>
         </header>
+  
+       <th:block layout:fragment="content"></th:block>
+  </div>
+          
 
-     
+
+  
 
           
-                <th:block layout:fragment="content"></th:block>
-
-            </div>
  
 
     <script th:src="@{/js/function.js}"></script>
