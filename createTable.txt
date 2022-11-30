@@ -1,3 +1,15 @@
+
+CREATE TABLE `comment` (
+  `cno` bigint(20) NOT NULL AUTO_INCREMENT COMMENT 'PK',
+  `bno` bigint(20) NOT NULL,
+  `content` varchar(3000) NOT NULL COMMENT '내용',
+  `writer` varchar(20) NOT NULL COMMENT '작성자',
+  PRIMARY KEY (`cno`)
+) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8mb4;
+
+
+
+
 CREATE TABLE `tb_post` (
   `id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT 'PK',
   `title` varchar(100) NOT NULL COMMENT '제목',
@@ -8,8 +20,7 @@ CREATE TABLE `tb_post` (
   `created_date` datetime NOT NULL DEFAULT current_timestamp() COMMENT '생성일시',
   `modified_date` datetime DEFAULT NULL COMMENT '최종 수정일시',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=528 DEFAULT CHARSET=utf8mb4 COMMENT='게시글';
-
+) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8mb4 COMMENT='게시글';
 
 
 CREATE TABLE `tb_user` (
@@ -20,12 +31,4 @@ CREATE TABLE `tb_user` (
   `APPEND_DATE` datetime DEFAULT NULL COMMENT '추가날짜',
   `UPDATE_DATE` datetime DEFAULT NULL COMMENT '수정날짜',
   PRIMARY KEY (`USER_NO`)
-) ENGINE=InnoDB AUTO_INCREMENT=19 DEFAULT CHARSET=utf8mb3;
-
-
-
-
-
-
-
-
+) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8mb3;
