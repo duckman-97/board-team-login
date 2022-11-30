@@ -10,7 +10,7 @@
 
 
 
-  <div class="page_tits" style="margin-top:10px; margin-left:10px;">
+  <div class="page_tits board" >
     <h1><strong> Board Project</strong></h1>
    <!--  <p class="path"><strong>현재 위치 :</strong> <span>게시판 관리</span> <span>리스트형</span> <span>리스트</span></p> -->
   </div>
@@ -21,7 +21,7 @@
   <div id="content" >
     <section>
       <!--/* 검색 */-->
-      <div class="search_box" style="margin:50px; background-color: gainsboro" >
+      <div class="search_box search_box_css">
         <form id="searchForm" onsubmit="return false;" autocomplete="off">
           <div class="sch_group fl"  >
             <select id = "searchType"  title="검색 유형 선택">
@@ -32,7 +32,7 @@
             </select>
               <input type="text" id="keyword"   placeholder="키워드를 입력해 주세요." />
           <button type="button" onclick="movePage(1);" class="fas fa-search"><span class="glyphicon glyphicon-search" aria-hidden="true"></span></button>
-  		 <a th:href ="@{/post/list.do}"><button type="button" style="width:100px; background-color:mediumseagreen;" > 검색 초기화</button></a>
+  		 <a th:href ="@{/post/list.do}"><button type="button" style=" background-color:mediumseagreen;" > <i class="bi bi-arrow-repeat" style="font-size:20px;"></i></button></a>
   		 
   	
           </div>
@@ -41,7 +41,7 @@
 
       <!--/* 리스트 */-->
   
-      <div style="text-align:center; margin-left:50px; margin-right:50px;"   >
+      <div class="main-list"  >
       <table class="table table-hover table-bordered" >
         <colgroup>
           <col style="width:50px;" /><col style="width:6%;" /><col style="width:auto;" /><col style="width:15%;" />
