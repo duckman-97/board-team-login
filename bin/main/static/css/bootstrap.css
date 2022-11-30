@@ -2650,6 +2650,7 @@ fieldset:disabled a.btn {
 	
 	 margin-left:150px;
 	 margin-right:150px;
+	 margin-top:70px;
 	
 	
 	
@@ -2667,6 +2668,20 @@ fieldset:disabled a.btn {
 }
 
 
+.font-size1{
+	font-size:17px;
+	
+	
+	
+}
+
+.font-size2{
+	font-size:18px;
+	
+	
+	
+}
+
 
 
 .font1{
@@ -2683,6 +2698,8 @@ fieldset:disabled a.btn {
 	
 	
 }
+
+
 
 
 .comment-radius{
@@ -2752,6 +2769,23 @@ fieldset:disabled a.btn {
 	margin-right:30px;
 	
 }
+
+
+
+.content-margin{
+	margin-top:100px;
+	margin-left:130px;
+	margin-right:130px; 
+	
+	
+	
+}
+
+
+
+
+
+
 
 .btn-danger:focus, .btn-danger.focus {
   box-shadow: 0 0 0 0.2rem rgba(225, 83, 97, 0.5);
