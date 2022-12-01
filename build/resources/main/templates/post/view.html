@@ -15,7 +15,7 @@
 
 
 	
-    <div class="content" style="margin: 50px; border-radius:25px;">
+    <div class="content content-margin " >
         <section>
             <table class="tb tb_row">
                 <colgroup>
@@ -26,30 +26,29 @@
                        
                       
                     </tr>
+                 
                     <tr>
+                        <th scope="row" style="background-color:Dimgray; color:white;" >이름</th>
+                        <td  >[[ ${post.writer} ]]</td>
+                        
+                        	        <th scope="row" style="background-color:Dimgray; color:white;" >등록일</th>
+                        <td  th:text="${#temporals.format( post.createdDate, 'yyyy-MM-dd HH:mm' )}"></td>
+                   
+                    </tr>
+                
+                    
+                       <tr>
                         <th scope="row" style="background-color:Dimgray; color:white;"  >제목</th>
                         <td colspan="3" >[[ ${post.title} ]]</td>
                         
-                       
-                        
-						<!-- 
-                        <th scope="row">조회</th>
-                        <td colspan="3">[[ ${post.viewCnt} ]]</td>
-                         -->
+             
                     </tr>
-                    <tr>
-                        <th scope="row" style="background-color:Dimgray; color:white;" >이름</th>
-                        <td colspan="3" >[[ ${post.writer} ]]</td>
-                        
-                   
-                    </tr>
-                    <tr>
-                    	        <th scope="row" style="background-color:Dimgray; color:white;" >등록일</th>
-                        <td colspan="3" th:text="${#temporals.format( post.createdDate, 'yyyy-MM-dd HH:mm' )}"></td>
-                    </tr>
-                    <tr height="250">
-                        <th scope="row" style="background-color:Dimgray; color:white;" >내용</th>
-                        <td colspan="3" >[[ ${post.content} ]]</td>
+                    
+                    
+                    
+                    <tr height="350">
+                     
+                        <td colspan="4" align="left" valign="top"  class="font-size2">[[ ${post.content} ]]</td>
                     </tr>
                 </tbody>
             </table>
@@ -75,30 +74,50 @@
 
 
 <!--  댓글 -->
-<div style = "margin-left:150px; margin-right:150px; ">
+<div class="comment-box comming-login-outdiv" sec:authorize="isAnonymous()" >
+
+
+
+<div class="div-comment-login comment-radius">
+<button class="btn comment-login-indiv" onclick="location.href='/login'" >
+	<b>로그인하고 댓글 작성하기</b>
+
+</button>
+
+</div>
+
+
+</div>
+
+
+<div class="comment-box"  sec:authorize="hasAnyRole('ADMIN','USER')"> 
 
 
 
 
-<div class="card" sec:authorize="hasAnyRole('ADMIN','USER')" style="border-radius:25px; ">
-  
-		<input type="text" class="form-control" id="writer" placeholder="이름" name ="writer" th:value="${#authentication.name}" readonly  style="width: 200px; border:none; margin-left:20px; margin-top:20px;">
+
+
+<div class="card comment-radius" >
+ 
+		<input type="text" class="form-control" id="writer" placeholder="이름" name ="writer" th:value="${#authentication.name}" readonly  style="width: 100px; border:none; margin-left:20px; margin-top:20px;">
 	           
-	<div class ="card-body"><textarea class ="form-constrol" row ="1" id="content" placeholder="내용을 입력해 주세요" ></textarea></div>
+	<div class ="card-body"><textarea class ="form-constrol" row ="1" id="content" placeholder="내용을 입력해 주세요." ></textarea></div>
    
 	<button class = "btn btn-primary" style="margin-left:15px; margin-bottom:15px; width:65px;" onclick="commentClick();">등록</button>
+
 
 </div>
 
 
 
-
 <br/>
 
+</div>
 
+<div class="comment-box">
 
-	<div class = "card-header" style="background-color:royalblue; color:white; font-size:18px; border-radius:18px 15px 0px 0px;"><b>&nbsp; comment</b></div>
-	<div class="list">
+	<div class = "card-header" ><i class="bi bi-chat-right-text" ></i><b>&nbsp; comment</b></div>
+	<div class="list" >
 	
 	
 	
@@ -129,6 +148,7 @@
 	
 	$(document).ready(function(){
 		
+		//댓글목록 불러오기
 		getList()
 		
 });  
@@ -146,10 +166,7 @@ var html = new URLSearchParams(location.search);
 
 //댓글 불러오기 시작
 function getList(){
-
-	
-	
-			
+		
 $.ajax({
 	url : "/Comment/CommentList/"  + html.get('id'),
 	type : 'GET',
@@ -158,7 +175,7 @@ $.ajax({
 	
 	data : {
 	
-
+	
     
 	},
 	success : function(data) { // controllor에서 list를 return 받았음
@@ -185,10 +202,10 @@ $.ajax({
 
 	
 		
-		innerString += '<li id="comment--1" class = "list-group-item d-flex justify-content-between"><div style="font-size:17px;">'+content+'</b></div><div class="d-flex"><div > 작성자 : '+writer+'  </div>';
+		innerString += '<li id="comment--1" class = "list-group-item d-flex justify-content-between"> <div class="d-inline-flex"> <div class="comment-writer" >'+writer+' </div><div class="comment-content font1" ">'+content+'</b></div></div><div class="d-flex">';
 		
 		if(document.getElementById('userName').value == writer){
-		innerString += '<button class="btn btn-danger" onclick="deleteComment('+ cno+')" style="margin-left:10px;">삭제</button>';
+		innerString += '<button class="btn btn-danger " onclick="deleteComment('+ cno+')"><i class="bi bi-eraser-fill"></i></button>';
 		}
 		
 		innerString +='</div></li>';
@@ -205,7 +222,7 @@ $.ajax({
 	}else{
 		
 		
-		innerString ='<li id="comment--1" class = "list-group-item d-flex justify-content-between">등록된 댓글이 없습니다.</li>';
+		innerString ='<li id="comment--1" class = "list-group-item d-flex justify-content-between font-size1 ">등록된 댓글이 없습니다.</li>';
 		
 	}
 	

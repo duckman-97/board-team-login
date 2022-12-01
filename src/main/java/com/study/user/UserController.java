@@ -35,7 +35,16 @@ public class UserController {
      * @return
      */
     @GetMapping("/login")
-    public String login(){
+    public String login(HttpServletRequest request,Model model){
+    	
+        String uri = request.getHeader("Referer");
+        if (uri != null && !uri.contains("/login")) {
+            request.getSession().setAttribute("prevPage", uri);
+        }
+        
+        
+       System.out.println(uri);
+    	
         return "user/login";
     }
 
